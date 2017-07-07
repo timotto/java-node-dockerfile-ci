@@ -3,7 +3,7 @@
 combine() {
   cat \
     ${java_src}/${java_tag}/${dockerfile_path} \
-    ${node_src}/${node_tag}/${dockerfile_path} \
+    ${node_src}/${node_tag}/${dockerfile_path}
 }
 
 froms() { combine | grep ^FROM ; }
