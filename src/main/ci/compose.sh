@@ -9,7 +9,8 @@ combine() {
 froms() { combine | grep ^FROM ; }
 
 build() {
-	froms
+	froms | uniq
+  echo ADD /REVISIONS /REVISIONS
 	combine | grep -v ^FROM
 }
 
