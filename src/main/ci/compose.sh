@@ -8,6 +8,12 @@ combine() {
 
 froms() { combine | grep ^FROM ; }
 
+build() {
+	froms | uniq
+  echo ADD /REVISIONS /REVISIONS
+	combine | grep -v ^FROM
+}
+
 revisions() { 
   while [ -n "$1" ]; do
     echo "$(git -C "$1" remote get-url origin) $(git -C "$1" rev-parse HEAD)"
@@ -22,6 +28,6 @@ if [ $(froms | uniq | wc -l) -ne 1 ]; then
   exit 1
 fi
 
-combine > "${target}/Dockerfile"
+build > "${target}/Dockerfile"
 
 revisions "${java_src}" "${node_src}" "$(dirname "$0")" > "${target}/REVISIONS"

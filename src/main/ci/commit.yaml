@@ -10,11 +10,11 @@ params:
   commit_message: Updated Dockerfile
 
 inputs:
-- name: java-node-dockerfile-ci-source
+- name: java-node-dockerfile-ci
 - name: java-node-dockerfile-build
-- name: java-node-dockerfile-source
+- name: java-node-dockerfile
 outputs: 
-- name: updated-java-node-dockerfile-source
+- name: updated-java-node-dockerfile
 
 run:
-  path: java-node-dockerfile-ci-source/src/main/ci/commit.sh
+  path: java-node-dockerfile-ci/src/main/ci/commit.sh
