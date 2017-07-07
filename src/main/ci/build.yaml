@@ -5,8 +5,12 @@ image_resource:
     repository: alpine
 
 params:
-  java_dockerfile_path: 8-jdk/alpine/Dockerfile
-  node_dockerfile_path: 8.1/alpine/Dockerfile
+  java_src: java-dockerfile-source
+  node_src: node-dockerfile-source
+  target: java-node-dockerfile-build
+  java_tag: 8-jdk
+  node_tag: 8.1
+  dockerfile_path: alpine/Dockerfile
 
 inputs:
 - name: java-node-dockerfile-ci-source

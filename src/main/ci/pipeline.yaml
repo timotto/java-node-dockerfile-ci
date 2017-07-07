@@ -19,7 +19,7 @@ jobs:
       image_resource:
         type: docker-image
         source:
-          repository: alpine
+          repository: alpine/git
       inputs:
       - name: java-node-dockerfile-ci-source
       - name: java-node-dockerfile-build
@@ -32,10 +32,15 @@ jobs:
         - -exc
         - |
           git clone java-node-dockerfile-source updated-java-node-dockerfile-source
-          tar cC java-node-dockerfile-build | tar xC updated-java-node-dockerfile-source
-          cd updated-java-node-dockerfile-source
-          git add .
-          git commit -a -m 'updated Dockerfile'
+          tar cC java-node-dockerfile-build . | tar xC updated-java-node-dockerfile-source
+          git -C updated-java-node-dockerfile-source \
+            add .
+          git -C updated-java-node-dockerfile-source \
+            -c user.name='concourse' \
+            -c user.email='ci@timotto.io' \
+            commit \
+              -q \
+              -m 'updated Dockerfile'
   - put: java-node-dockerfile-source
     params:
       repository: updated-java-node-dockerfile-source
@@ -44,7 +49,7 @@ resources:
 - name: java-node-dockerfile-source
   type: git
   source:
-    uri: https://github.com/timotto/java-node-dockerfile
+    uri: git@github.com:timotto/java-node-dockerfile.git
     branch: master
     private_key: {{git-ssh-key}}
 

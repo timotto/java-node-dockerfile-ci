@@ -1,0 +1,20 @@
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: alpine/git
+
+params:
+  git_user: concourse
+  git_email: ci@timotto.io
+  commit_message: Updated Dockerfile
+
+inputs:
+- name: java-node-dockerfile-ci-source
+- name: java-node-dockerfile-build
+- name: java-node-dockerfile-source
+outputs: 
+- name: updated-java-node-dockerfile-source
+
+run:
+  path: java-node-dockerfile-ci-source/src/main/ci/build.sh
