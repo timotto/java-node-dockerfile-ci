@@ -13,10 +13,10 @@ params:
   dockerfile_path: alpine/Dockerfile
 
 inputs:
-- name: java-node-dockerfile-ci-source
+- name: java-node-dockerfile-ci
 - name: java-dockerfile-source
 - name: node-dockerfile-source
 outputs: 
 - name: java-node-dockerfile-build
 run:
-  path: java-node-dockerfile-ci-source/src/main/ci/build.sh
+  path: java-node-dockerfile-ci/src/main/ci/compose.sh

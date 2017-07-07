@@ -1,8 +1,8 @@
 #!/bin/sh
 
-build=updated-java-node-dockerfile-source
+build=updated-java-node-dockerfile
 
-git clone java-node-dockerfile-source ${build}
+git clone java-node-dockerfile ${build}
 
 tar cC java-node-dockerfile-build . | tar xC ${build}
 
