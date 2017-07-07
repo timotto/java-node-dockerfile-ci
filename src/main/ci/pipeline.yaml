@@ -4,30 +4,30 @@ jobs:
   serial: true
   plan:
   - aggregate:
-    - get: java-node-dockerfile-ci-source
+    - get: java-node-dockerfile-ci
       trigger: true
     - get: java-dockerfile-source
       trigger: true
     - get: node-dockerfile-source
       trigger: true
-    - get: java-node-dockerfile-source
+    - get: java-node-dockerfile
   - task: compose
-    file: java-node-dockerfile-ci-source/src/main/ci/build.yaml
+    file: java-node-dockerfile-ci/src/main/ci/compose.yaml
   - task: commit
-    file: java-node-dockerfile-ci-source/src/main/ci/commit.yaml
-  - put: java-node-dockerfile-source
+    file: java-node-dockerfile-ci/src/main/ci/commit.yaml
+  - put: java-node-dockerfile
     params:
-      repository: updated-java-node-dockerfile-source
+      repository: updated-java-node-dockerfile
 
 resources:
-- name: java-node-dockerfile-source
+- name: java-node-dockerfile
   type: git
   source:
     uri: git@github.com:timotto/java-node-dockerfile.git
     branch: master
     private_key: {{git-ssh-key}}
 
-- name: java-node-dockerfile-ci-source
+- name: java-node-dockerfile-ci
   type: git
   source:
     uri: https://github.com/timotto/java-node-dockerfile-ci
