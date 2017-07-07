@@ -24,7 +24,7 @@ resources:
   type: git
   source:
     uri: git@github.com:timotto/java-node-dockerfile.git
-    branch: test
+    branch: master
     private_key: {{git-ssh-key}}
 
 - name: java-node-dockerfile-ci-source
