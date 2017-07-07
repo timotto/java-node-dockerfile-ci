@@ -2,7 +2,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: alpine
+    repository: alpine/git
 
 params:
   java_src: java-dockerfile-source
