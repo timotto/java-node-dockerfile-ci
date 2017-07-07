@@ -24,4 +24,4 @@ fi
 
 combine > "${target}/Dockerfile"
 
-revisions "${java_src}" "${node_src}" "$(basename "$0")" > "${target}/REVISIONS"
+revisions "${java_src}" "${node_src}" "$(dirname "$0")" > "${target}/REVISIONS"
