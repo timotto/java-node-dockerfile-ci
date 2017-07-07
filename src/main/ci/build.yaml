@@ -1,0 +1,18 @@
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: alpine
+
+params:
+  java_dockerfile_path: openjdk/8-jdk/alpine/Dockerfile
+  node_dockerfile_path: docker-node/8.1/alpine/Dockerfile
+
+inputs:
+- name: java-node-dockerfile-ci-source
+- name: java-dockerfile-source
+- name: node-dockerfile-source
+outputs: 
+- name: java-node-dockerfile-build
+run:
+  path: java-node-dockerfile-ci-source/src/main/ci/build.sh

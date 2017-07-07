@@ -1,0 +1,67 @@
+jobs:
+- name: compose-dockerfile
+  public: true
+  serial: true
+  plan:
+  - aggregate:
+    - get: java-node-dockerfile-ci-source
+      trigger: true
+    - get: java-dockerfile-source
+      trigger: true
+    - get: node-dockerfile-source
+      trigger: true
+    - get: java-node-dockerfile-source
+  - task: compose
+    file: java-node-dockerfile-ci-source/src/main/ci/build.yaml
+  - task: prepare-push
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: alpine
+      inputs:
+      - name: java-node-dockerfile-ci-source
+      - name: java-node-dockerfile-build
+      - name: java-node-dockerfile-source
+      outputs: 
+      - name: updated-java-node-dockerfile-source
+      run:
+        path: sh
+        args:
+        - -exc
+        - |
+          git clone java-node-dockerfile-source updated-java-node-dockerfile-source
+          tar cC java-node-dockerfile-build | tar xC updated-java-node-dockerfile-source
+          cd updated-java-node-dockerfile-source
+          git add .
+          git commit -a -m 'updated Dockerfile'
+  - put: java-node-dockerfile-source
+    params:
+      repository: updated-java-node-dockerfile-source
+
+resources:
+- name: java-node-dockerfile-source
+  type: git
+  source:
+    uri: https://github.com/timotto/java-node-dockerfile
+    branch: master
+    private_key: {{git-ssh-key}}
+
+- name: java-node-dockerfile-ci-source
+  type: git
+  source:
+    uri: https://github.com/timotto/java-node-dockerfile-ci
+    branch: master
+
+- name: java-dockerfile-source
+  type: git
+  source:
+    uri: https://github.com/docker-library/openjdk.git
+    branch: master
+
+- name: node-dockerfile-source
+  type: git
+  source:
+    uri: https://github.com/nodejs/docker-node.git
+    branch: master
