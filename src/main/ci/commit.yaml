@@ -17,4 +17,4 @@ outputs:
 - name: updated-java-node-dockerfile-source
 
 run:
-  path: java-node-dockerfile-ci-source/src/main/ci/build.sh
+  path: java-node-dockerfile-ci-source/src/main/ci/commit.sh
